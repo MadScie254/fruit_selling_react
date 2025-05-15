@@ -19,12 +19,12 @@
     "vite": "^6.3.5"
   },
   "description": "",
-  "main": "eslint.config.js",
+  "main": "src/main.jsx",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MadScie254/fruit_selling_react.git"
+    "url": "https://github.com/MadScie254/fruit_selling_react.git"
   },
-  "author": "",
+  "author": "Daniel Wanjala",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/MadScie254/fruit_selling_react/issues"
