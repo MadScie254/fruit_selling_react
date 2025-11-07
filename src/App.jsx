@@ -341,63 +341,72 @@ const App = () => {
 
       {/* Modal for fruit details */}
       {isModalOpen && selectedFruit && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 animate-fade-in">
-          <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative">
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 animate-fade-in backdrop-blur-sm">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative">
             <button 
               onClick={closeModal} 
-              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl"
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-3xl font-bold hover:bg-gray-100 w-10 h-10 rounded-full flex items-center justify-center transition-all"
             >
-              &times;
+              ✕
             </button>
-            <div className="p-6">
-              <div className="flex flex-col md:flex-row">
-                <div className="md:w-1/2 mb-6 md:mb-0">
-                  <img src={selectedFruit.image} alt={selectedFruit.name} className="w-full h-auto object-cover rounded-lg" />
+            <div className="p-8">
+              <div className="flex flex-col md:flex-row gap-8">
+                <div className="md:w-1/2">
+                  <img src={selectedFruit.image} alt={selectedFruit.name} className="w-full h-auto object-cover rounded-2xl shadow-lg" />
+                  <div className="mt-4 flex gap-2">
+                    <span className="inline-block bg-green-100 text-green-800 px-4 py-2 rounded-full font-semibold">📍 {selectedFruit.origin}</span>
+                    <span className="inline-block bg-blue-100 text-blue-800 px-4 py-2 rounded-full font-semibold">📅 {selectedFruit.seasonality}</span>
+                  </div>
                 </div>
-                <div className="md:w-1/2 md:pl-6">
-                  <h2 className="text-2xl font-bold mb-2">{selectedFruit.name}</h2>
-                  <div className="flex items-center text-yellow-500 mb-2">
+                <div className="md:w-1/2">
+                  <h2 className="text-4xl font-bold mb-2 text-gradient">{selectedFruit.name}</h2>
+                  <div className="flex items-center text-yellow-400 mb-4">
                     {[...Array(5)].map((_, i) => (
                       <svg 
                         key={i} 
-                        className={`w-4 h-4 ${i < parseInt(selectedFruit.rating) ? 'fill-current' : 'stroke-current'}`} 
+                        className={`w-5 h-5 ${i < parseInt(selectedFruit.rating) ? 'fill-current' : 'stroke-current'}`} 
                         xmlns="http://www.w3.org/2000/svg" 
                         viewBox="0 0 20 20"
                       >
                         <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
                       </svg>
                     ))}
-                    <span className="ml-2 text-sm text-gray-600">{selectedFruit.reviews} reviews</span>
+                    <span className="ml-3 text-sm text-gray-600 font-semibold">({selectedFruit.reviews} customer reviews)</span>
                   </div>
-                  <p className="text-gray-600 mb-4">{selectedFruit.description}</p>
-                  <div className="grid grid-cols-2 gap-4 mb-4">
-                    <div>
-                      <h4 className="font-medium">Origin:</h4>
-                      <p>{selectedFruit.origin}</p>
-                    </div>
-                    <div>
-                      <h4 className="font-medium">Seasonality:</h4>
-                      <p>{selectedFruit.seasonality}</p>
-                    </div>
-                    <div>
-                      <h4 className="font-medium">Nutrition (100g):</h4>
-                      <p>{selectedFruit.nutrition.calories} kcal</p>
-                    </div>
-                    <div>
-                      <h4 className="font-medium">Key Nutrient:</h4>
-                      <p>{selectedFruit.nutrition.vitamins}</p>
+                  <p className="text-gray-600 mb-6 text-lg leading-relaxed">{selectedFruit.description}</p>
+                  
+                  <div className="bg-gradient-light rounded-2xl p-6 mb-6">
+                    <h3 className="font-bold text-lg mb-4 text-gray-800">📊 Nutrition Facts (per 100g)</h3>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="bg-white rounded-lg p-3">
+                        <p className="text-gray-600 text-sm">Calories</p>
+                        <p className="text-2xl font-bold text-green-600">{selectedFruit.nutrition.calories}</p>
+                      </div>
+                      <div className="bg-white rounded-lg p-3">
+                        <p className="text-gray-600 text-sm">Fiber</p>
+                        <p className="text-2xl font-bold text-green-600">{selectedFruit.nutrition.fiber}g</p>
+                      </div>
+                      <div className="bg-white rounded-lg p-3">
+                        <p className="text-gray-600 text-sm">Sugar</p>
+                        <p className="text-2xl font-bold text-green-600">{selectedFruit.nutrition.sugar}g</p>
+                      </div>
+                      <div className="bg-white rounded-lg p-3">
+                        <p className="text-gray-600 text-sm">Key Vitamin</p>
+                        <p className="font-bold text-green-600 text-sm">{selectedFruit.nutrition.vitamins}</p>
+                      </div>
                     </div>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <div className="text-green-600 font-bold text-xl">
-                      {formatCurrency(selectedFruit.price)}
-                      <span className="text-sm text-gray-500 ml-1">per kg</span>
+                  
+                  <div className="flex justify-between items-center mb-6 bg-gradient-to-r from-green-50 to-emerald-50 p-6 rounded-2xl border-2 border-green-200">
+                    <div>
+                      <p className="text-gray-600 text-sm">Price per kg</p>
+                      <p className="text-4xl font-bold text-gradient">{formatCurrency(selectedFruit.price)}</p>
                     </div>
                     <button
-                      onClick={() => addToCart(selectedFruit)}
-                      className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors"
+                      onClick={() => { addToCart(selectedFruit); closeModal(); }}
+                      className="btn-primary shadow-lg hover:shadow-xl"
                     >
-                      Add to Cart
+                      🛒 Add to Cart
                     </button>
                   </div>
                 </div>
