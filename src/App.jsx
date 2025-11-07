@@ -279,26 +279,29 @@ const App = () => {
           {/* Product Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredAndSortedFruits.length > 0 ? (
-              filteredAndSortedFruits.map((fruit) => (
+              filteredAndSortedFruits.map((fruit, index) => (
                 <div
                   key={fruit.id}
-                  className="bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-xl"
+                  className="bg-white rounded-2xl shadow-md overflow-hidden card-hover group border border-gray-100 hover:border-green-300"
+                  style={{animationDelay: `${index * 0.05}s`}}
                 >
-                  <div className="relative">
-                    <img src={fruit.image} alt={fruit.name} className="w-full h-48 object-cover" />
+                  <div className="relative h-52 overflow-hidden bg-gray-100">
+                    <img src={fruit.image} alt={fruit.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     <button 
                       onClick={() => addToWishlist(fruit)}
-                      className="absolute top-2 right-2 bg-white rounded-full p-1 hover:bg-green-100 transition-colors"
+                      className="absolute top-3 right-3 bg-white rounded-full p-2 shadow-lg hover:bg-green-50 transition-colors transform hover:scale-110 z-10"
                       aria-label="Add to wishlist"
                     >
-                      <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 ${wishlist.some(item => item.id === fruit.id) ? 'text-red-500' : 'text-gray-500'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg xmlns="http://www.w3.org/2000/svg" className={`h-6 w-6 ${wishlist.some(item => item.id === fruit.id) ? 'text-red-500 fill-current' : 'text-gray-400'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                       </svg>
                     </button>
+                    <div className="absolute top-3 left-3 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold">Stock: {fruit.stock}</div>
                   </div>
-                  <div className="p-4">
-                    <h3 className="text-lg font-semibold mb-1">{fruit.name}</h3>
-                    <div className="flex items-center text-yellow-500 mb-2">
+                  <div className="p-5">
+                    <h3 className="text-lg font-bold mb-2 text-gray-800 group-hover:text-green-600 transition-colors">{fruit.name}</h3>
+                    <div className="flex items-center text-yellow-400 mb-3">
                       {[...Array(5)].map((_, i) => (
                         <svg 
                           key={i} 
@@ -309,27 +312,27 @@ const App = () => {
                           <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
                         </svg>
                       ))}
-                      <span className="ml-2 text-sm text-gray-600">{fruit.reviews} reviews</span>
+                      <span className="ml-2 text-xs text-gray-600 font-semibold">({fruit.reviews})</span>
                     </div>
-                    <p className="text-gray-600 text-sm mb-2 line-clamp-2">{fruit.description}</p>
-                    <div className="flex justify-between items-center mt-4">
-                      <div className="text-green-600 font-bold">
+                    <p className="text-gray-600 text-sm mb-4 line-clamp-2 min-h-10">{fruit.description}</p>
+                    <div className="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
+                      <div className="text-gradient font-bold text-lg">
                         {formatCurrency(fruit.price)}
-                        <span className="text-xs text-gray-500 ml-1">per kg</span>
+                        <span className="text-xs text-gray-500 font-normal ml-1">/kg</span>
                       </div>
                       <button
                         onClick={() => openModal(fruit)}
-                        className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors"
+                        className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white px-4 py-2 rounded-lg font-semibold hover:shadow-lg transition-all transform hover:scale-105 active:scale-95"
                       >
-                        View Details
+                        View
                       </button>
                     </div>
                   </div>
                 </div>
               ))
             ) : (
-              <div className="col-span-full text-center py-10">
-                <p className="text-gray-500">No fruits found matching your criteria.</p>
+              <div className="col-span-full text-center py-16">
+                <p className="text-gray-500 text-xl">🔍 No fruits found matching your search.</p>
               </div>
             )}
           </div>
