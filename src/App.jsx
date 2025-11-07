@@ -201,74 +201,79 @@ const App = () => {
       </header>
 
       {/* Hero Section */}
-      <section id="home" className="bg-green-50 py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-4">Welcome to FruitMart</h2>
-          <p className="text-lg max-w-2xl mx-auto mb-8">
-            Fresh, organic, and locally sourced fruits delivered straight to your door. With over 300+ varieties of fruits available, we bring you the finest produce from across East Africa.
+      <section id="home" className="bg-gradient-to-b from-green-50 via-emerald-50 to-white py-20 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 left-1/4 w-72 h-72 bg-green-400 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
+          <div className="absolute -top-10 right-1/4 w-72 h-72 bg-emerald-400 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
+        </div>
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <h2 className="text-5xl md:text-6xl font-bold mb-6 text-gradient animate-fade-in">
+            Welcome to FruitMart
+          </h2>
+          <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-10 leading-relaxed animate-slide-in-left">
+            🌾 Fresh, organic, and locally sourced fruits delivered straight to your door. With over 300+ varieties available, we bring you the finest produce from across East Africa.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+          <div className="flex flex-col sm:flex-row justify-center gap-4 animate-fade-in" style={{animationDelay: '0.2s'}}>
             <a
               href="#products"
-              className="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-full transition-colors"
+              className="inline-block btn-primary shadow-lg hover:shadow-2xl"
             >
-              Shop Now
+              🛒 Shop Now
             </a>
             <a
               href="#about"
               onClick={() => setShowAboutUs(true)}
-              className="inline-block bg-white hover:bg-gray-100 text-green-600 font-semibold py-3 px-6 rounded-full transition-colors border border-green-600"
+              className="inline-block btn-secondary shadow-md hover:shadow-lg"
             >
-              About Us
+              ℹ️ About Us
             </a>
           </div>
         </div>
       </section>
 
       {/* Product Filters */}
-      <section id="products" className="py-10">
+      <section id="products" className="py-16 bg-white">
         <div className="container mx-auto px-4">
-          <div className="flex flex-wrap gap-4 mb-6">
-            <div className="w-full sm:w-1/2 lg:w-1/4">
+          <h2 className="text-4xl font-bold mb-12 text-center text-gradient">Our Premium Selection</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div className="md:col-span-2">
               <input
                 type="text"
-                placeholder="Search fruits..."
+                placeholder="🔍 Search for your favorite fruits..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                className="w-full p-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent shadow-md hover:shadow-lg transition-all text-lg"
               />
             </div>
-            <div className="w-full sm:w-1/2 lg:w-1/4">
+            <div>
               <select
                 value={sortOption}
                 onChange={(e) => setSortOption(e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                className="w-full p-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent shadow-md hover:shadow-lg transition-all text-lg"
               >
-                <option value="default">Default Sorting</option>
-                <option value="price-low-high">Price: Low to High</option>
-                <option value="price-high-low">Price: High to Low</option>
-                <option value="name-a-z">Name: A-Z</option>
-                <option value="name-z-a">Name: Z-A</option>
-                <option value="rating-desc">Rating: Highest First</option>
+                <option value="default">📊 Default Sorting</option>
+                <option value="price-low-high">💰 Price: Low to High</option>
+                <option value="price-high-low">💸 Price: High to Low</option>
+                <option value="name-a-z">🔤 Name: A-Z</option>
+                <option value="name-z-a">🔤 Name: Z-A</option>
+                <option value="rating-desc">⭐ Highest Rated</option>
               </select>
             </div>
-            <div className="w-full sm:w-1/2 lg:w-1/4">
-              <div className="flex space-x-2 overflow-x-auto pb-2">
-                {categories.map((category) => (
-                  <button
-                    key={category}
-                    onClick={() => setActiveTab(category)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                      activeTab === category
-                        ? 'bg-green-600 text-white'
-                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                    }`}
-                  >
-                    {category.charAt(0).toUpperCase() + category.slice(1)}
-                  </button>
-                ))}
-              </div>
-            </div>
+          </div>
+          <div className="flex gap-3 overflow-x-auto pb-4 mb-8">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setActiveTab(category)}
+                className={`px-6 py-3 rounded-full font-semibold whitespace-nowrap transition-all transform hover:scale-105 ${
+                  activeTab === category
+                    ? 'bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200 shadow-md'
+                }`}
+              >
+                {category === 'all' ? '🌍 All' : category === 'Citrus' ? '🍊 Citrus' : category === 'Berries' ? '🫐 Berries' : category === 'Tropical' ? '🌴 Tropical' : '✨ Exotic'}
+              </button>
+            ))}
           </div>
 
           {/* Product Grid */}
