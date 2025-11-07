@@ -528,59 +528,54 @@ const App = () => {
 
       {/* Wishlist Modal */}
       {isWishlistOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-end sm:items-center justify-center p-4 animate-fade-in">
-          <div className="bg-white rounded-t-lg sm:rounded-lg shadow-xl w-full max-w-md h-full sm:h-auto overflow-y-auto">
-            <div className="p-6">
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-2xl font-bold">Your Wishlist</h2>
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-end sm:items-center justify-center p-4 animate-fade-in backdrop-blur-sm">
+          <div className="bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl w-full max-w-md h-full sm:h-auto overflow-y-auto">
+            <div className="p-8">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-3xl font-bold text-gradient">❤️ Your Wishlist</h2>
                 <button 
                   onClick={() => setIsWishlistOpen(false)}
-                  className="text-gray-500 hover:text-gray-700 text-2xl"
+                  className="text-gray-400 hover:text-gray-700 text-3xl font-bold hover:bg-gray-100 w-10 h-10 rounded-full flex items-center justify-center transition-all"
                 >
-                  &times;
+                  ✕
                 </button>
               </div>
               {wishlist.length > 0 ? (
                 <ul className="space-y-4">
                   {wishlist.map((item) => (
-                    <li key={item.id} className="flex justify-between items-center">
-                      <div className="flex items-center">
+                    <li key={item.id} className="flex justify-between items-center bg-gray-50 p-4 rounded-xl hover:bg-gray-100 transition-colors">
+                      <div className="flex items-center gap-4 flex-1">
                         <img
                           src={item.image}
                           alt={item.name}
-                          className="w-12 h-12 object-cover rounded mr-3"
+                          className="w-14 h-14 object-cover rounded-lg shadow-md"
                         />
-                        <div>
-                          <h3 className="font-medium">{item.name}</h3>
-                          <p className="text-gray-600 text-sm">{formatCurrency(item.price)}</p>
+                        <div className="flex-1">
+                          <h3 className="font-bold text-gray-800">{item.name}</h3>
+                          <p className="text-green-600 text-sm font-bold">{formatCurrency(item.price)}</p>
                         </div>
                       </div>
-                      <div className="flex items-center space-x-2">
+                      <div className="flex gap-2">
                         <button
                           onClick={() => addToCart(item)}
-                          className="bg-green-600 text-white px-3 py-1 rounded-md text-sm hover:bg-green-700 transition-colors"
+                          className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-lg text-xs font-bold transition-all transform hover:scale-105"
                         >
-                          Add to Cart
+                          Add
                         </button>
                         <button
                           onClick={() => removeFromWishlist(item.id)}
-                          className="text-gray-400 hover:text-red-500"
+                          className="text-gray-400 hover:text-red-500 font-bold text-xl hover:bg-red-50 w-8 h-8 rounded flex items-center justify-center transition-all"
                         >
-                          ×
+                          ✕
                         </button>
                       </div>
                     </li>
                   ))}
                 </ul>
               ) : (
-                <div className="text-center py-8">
-                  <p className="text-gray-500">Your wishlist is empty.</p>
-                  <button
-                    onClick={() => document.getElementById('products').scrollIntoView({ behavior: 'smooth' })}
-                    className="mt-4 text-green-600 hover:text-green-800 font-medium"
-                  >
-                    Browse Products
-                  </button>
+                <div className="text-center py-12">
+                  <p className="text-4xl mb-4">❤️</p>
+                  <p className="text-gray-500 text-lg font-semibold">No items in your wishlist</p>
                 </div>
               )}
             </div>
